@@ -50,7 +50,14 @@ contract smartdebit {
         addresses = accountAddresses;
     }
     
-    function changeDirectDebit(address beneficiary, uint newAmount) isOwner {
+    function changeDirectDebit(address beneficiary, uint newAmount) {
+        if (accountsMapping[beneficiary].exists == false) {
+            throw;
+        }
+        if (msg.sender != contractOwner || msg.sender != beneficiary) {
+            throw;
+        }
+        
         accountsMapping[beneficiary].fee = newAmount;
     }
     
