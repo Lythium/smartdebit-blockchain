@@ -3,31 +3,16 @@ contractAbi = [
     "constant": false,
     "inputs": [],
     "name": "pay",
-    "outputs": [],
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
+    "outputs": [
       {
-        "name": "beneficiary",
-        "type": "address"
-      },
-      {
-        "name": "fee",
-        "type": "uint256"
-      },
-      {
-        "name": "period",
+        "name": "count",
         "type": "uint256"
       }
     ],
-    "name": "createDirectDebit",
-    "outputs": [],
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
         "name": "beneficiary",
@@ -45,6 +30,30 @@ contractAbi = [
         "type": "uint256"
       }
     ],
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "beneficiary",
+        "type": "address"
+      },
+      {
+        "name": "fee",
+        "type": "uint256"
+      },
+      {
+        "name": "period",
+        "type": "uint256"
+      },
+      {
+        "name": "allowChanges",
+        "type": "bool"
+      }
+    ],
+    "name": "createDirectDebit",
+    "outputs": [],
     "type": "function"
   },
   {
@@ -102,26 +111,6 @@ contractAbi = [
         "type": "address[]"
       }
     ],
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "beneficiary",
-        "type": "address"
-      },
-      {
-        "name": "fee",
-        "type": "uint256"
-      },
-      {
-        "name": "period",
-        "type": "uint256"
-      }
-    ],
-    "name": "createTestDD",
-    "outputs": [],
     "type": "function"
   },
   {
