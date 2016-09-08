@@ -5,6 +5,7 @@ contract smartdebit {
         uint fee;
         uint period;
         uint deadline;
+        bool allowChanges;
         bool exists;
     }
     
@@ -25,12 +26,12 @@ contract smartdebit {
         _
     }
     
-    function createDirectDebit(address beneficiary, uint fee, uint period) isOwner {
+    function createDirectDebit(address beneficiary, uint fee, uint period, bool allowChanges) isOwner {
         if (accountsMapping[beneficiary].exists == true) {
             throw; // Account already has a direct debit setup against it
         }
         
-        var acc = Account(beneficiary, fee, period, period+now, true);
+        var acc = Account(beneficiary, fee, period, period+now, allowChanges, true);
         accountsMapping[beneficiary] = acc;
         
         accountAddresses.push(beneficiary);
@@ -54,7 +55,7 @@ contract smartdebit {
         if (accountsMapping[beneficiary].exists == false) {
             throw;
         }
-        if (msg.sender != contractOwner || msg.sender != beneficiary) {
+        if (msg.sender != contractOwner || (msg.sender != beneficiary && !accountsMapping[beneficiary].allowChanges)) {
             throw;
         }
         

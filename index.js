@@ -41,8 +41,9 @@ app.post('/createDirectDebit', function(req, res) {
     var accountNumber = req.body.beneficiary;
     var fee = req.body.fee;
     var period = req.body.period;
+    var allowChanges = req.body.allowChanges;
     
-    var fee = contractInstance.createDirectDebit(name, accountNumber, fee, period);
+    var fee = contractInstance.createDirectDebit(name, accountNumber, fee, period, allowChanges);
     res.send('Account number: ' + accountNumber + ' fee: ' + fee + ' period: ' + period + ' added to your account.');
 });
 
