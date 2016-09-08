@@ -15,7 +15,7 @@ require('./abi.js');
 var contractObject = web3.eth.contract(contractAbi);
 
 // instantiate by address
-var contractAddress = '0x17956ba5f4291844bc25aedb27e69bc11b5bda39';
+var contractAddress = '0xdf315f7485c3a86eb692487588735f224482abe3';
 var contractInstance = contractObject.at(contractAddress);
 web3.eth.defaultAccount = '0xdedb49385ad5b94a16f236a6890cf9e0b1e30392';
 
