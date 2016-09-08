@@ -1,0 +1,11 @@
+{
+    "name": "index",
+    "dependencies": {
+        "express": "latest",
+        "web3": "latest",
+        "body-parser": "latest",
+        "stylus": "latest",
+        "nib": "latest",
+        "ejs": "latest"
+    }
+}
