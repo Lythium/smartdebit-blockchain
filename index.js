@@ -29,7 +29,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 console.log(web3.version.api);
 
-
 var accountNumber = '0xcd2a3d9f938e13cd947ec05abc7fe734df8dd826';
 var fee = 1;
 var period = 1;
@@ -39,39 +38,23 @@ var period = 1;
 console.log('test');
 
 app.get('/', function(req,res) {
-   //Display all direct debits set up
-    var all = contractInstance.getAllDirectDebits();
-    var listData = '<table class="table-fill"><thead><tr><th class="text-left">Account Number</th><th class="text-left">Fee</th><th class="text-left">Period</th></tr></thead><tbody class="table-hover">' + 
-    '<%for(var i=0; i<all.length; i++) { %>' +
-    '<tr>' + 
-'<td class="text-left">all[i]</td>' +
-'<td class="text-left">123</td>' +
-'<td class="text-left">123</td>' +
-'</tr>' +
-'<% } %>' +
-'</tbody>' +
-'</table>';
-    html = ejs.render(listData, all);
-
-    res.send(html);
-
-   //res.send(html);
+    res.sendFile(path.join(__dirname, 'main.html'));
 });
 
-app.get('/createDirectDebit', function(req, res) {
+app.get('/get', function(req, res) {
+    var accountNumber = req.query.acc;
+    var fee = contractInstance.getDirectDebit(accountNumber);
     res.sendFile(path.join(__dirname, 'create_direct_debit.html'));
 });
 
-// POST http://localhost:8080/api/users
-// parameters sent with 
 app.post('/createDirectDebit', function(req, res) {
-    var accountNumber = req.body.name;
-    var fee = req.body.email;
-    var periode = req.body.contact;
+    var name = req.body.name;
+    var accountNumber = req.body.beneficiary;
+    var fee = req.body.fee;
+    var period = req.body.period;
     
-    //contractInstance.createDirectDebit(accountNumber, fee, periode);
-    
-    res.send(' Account number: ' + accountNumber + ' fee: ' + fee + ' periode: ' + periode);
+    var fee = contractInstance.createDirectDebit(name, accountNumber, fee, period);
+    res.send('Account number: ' + accountNumber + ' fee: ' + fee + ' period: ' + period);
 });
 
 app.get('/changeDirectDebit', function(req, res) {

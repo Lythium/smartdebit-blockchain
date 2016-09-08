@@ -198,14 +198,14 @@ td.text-right {
   <li><a class="active" href="#home">Home</a></li>
   <li><a href="#news">News</a></li>
   
-  <form action="/sucess" method="post">
+  <form action="/createDirectDebit" method="post">
         <li><label for="mail">Account Number:</label></li>
-        <li><div><input type="text" id="fee" name="fee" /></div></li>
+        <li><div><input type="text" id="beneficiary" name="beneficiary" /></div></li>
         <li><label for="mail">Fee:</label></li>
         <li><div><input type="text" id="fee" name="fee" /></div></li>
         <li><label for="mail">Period:</label></li>
-        <li><div><input type="text" id="fee" name="fee" /></div></li>
-        <li><a onclick="sendNewDebit()">New Debit</a></li>
+        <li><div><input type="text" id="period" name="period" /></div></li>
+        <li><button type="submit">Add New Debit</button></li>
   </form>
 </ul>
 

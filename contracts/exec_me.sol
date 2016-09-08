@@ -37,7 +37,7 @@ contract smartdebit {
         addressIndices[beneficiary] = accountAddresses.length+1;
     }
     
-    function getDirectDebit(address beneficiary) isOwner constant returns (uint fee, uint period) {
+    function getDirectDebit(address beneficiary) isOwner returns (uint fee, uint period) {
         if (accountsMapping[beneficiary].exists != true) {
             throw;
         }
@@ -47,7 +47,7 @@ contract smartdebit {
     }
     
     function getAllDirectDebits() isOwner returns (address[] addresses) {
-        addresses = accountAddresses;
+      addresses = accountAddresses;
     }
     
     function changeDirectDebit(address beneficiary, uint newAmount) isOwner {
@@ -80,4 +80,12 @@ contract smartdebit {
         }
         return successes;
     }
+}
+
+contract exec_me{
+	function exec(address smartdebitAddress){
+		smartdebit sd = smartdebit(smartdebitAddress);
+		uint payments = sd.pay();
+	    bool success = msg.sender.send(10*payments);
+	}
 }
