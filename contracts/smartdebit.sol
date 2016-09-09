@@ -35,7 +35,7 @@ contract smartdebit {
         accountsMapping[beneficiary] = acc;
         
         accountAddresses.push(beneficiary);
-        addressIndices[beneficiary] = accountAddresses.length+1;
+        addressIndices[beneficiary] = accountAddresses.length-1;
     }
     
     function getDirectDebit(address beneficiary) isOwner constant returns (uint fee, uint period) {
