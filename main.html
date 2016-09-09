@@ -194,17 +194,15 @@ td.text-right {
 	
 </script>
 <script>
-function deleteAccount() {
-    document.getElementById(document.getElementById("beneficiary").value).remove();
-    var form = document.createElement('form');
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', '/deleteDirectDebit');
-    form.style.display = 'hidden';
-    document.body.appendChild(form)
-    form.submit();
-}
-
 $(document).ready(function(){
+  
+$("#allowchanges").on('change', function() {
+  if ($(this).is(':checked')) {
+    $(this).attr('value', 'true');
+  } else {
+    $(this).attr('value', 'false');
+  }});
+  
   $("#populate").click(function(){
     event.preventDefault();
 
@@ -213,7 +211,7 @@ $(document).ready(function(){
         beneficiary: $('#beneficiary').val(),
         fee: $('#fee').val(),
         period: $('#period').val(),
-        allowChanges: true
+        allowChanges: $('#allowchanges').val()
     },
     function(data, status){
         //alert("Data: " + data + "\nStatus: " + status);
@@ -229,7 +227,21 @@ $(document).ready(function(){
     cell1.innerHTML = document.getElementById("beneficiary").value;
     cell2.innerHTML = document.getElementById("fee").value;
 	cell3.innerHTML = document.getElementById("period").value;
-	cell4.innerHTML = "<button onclick=\"deleteAccount()\">Remove</button>";
+	cell4.innerHTML = "<button id=\"delete\" value=\"" + document.getElementById("beneficiary").value + "\">Remove</button>";
+	
+	  $("#delete").click(function(){
+    event.preventDefault();
+
+    $.post("/deleteDirectDebit",
+    {
+        address: $(this).val()
+    },
+    function(data, status){
+        //alert("Data: " + data + "\nStatus: " + status);
+    });
+    var rowToRemove = 'tr[id="' + $(this).val() + '"]';
+    $(rowToRemove).remove();
+  });
 });
   
 });
@@ -240,7 +252,6 @@ $(document).ready(function(){
 
 <ul>
   <li><a class="active" href="#home">Home</a></li>
-  <li><a href="#news">News</a></li>
   
   <form action="/createDirectDebit" method="post" id="form">
         <li><label for="mail">Account Number:</label></li>
@@ -249,6 +260,7 @@ $(document).ready(function(){
         <li><div><input type="text" id="fee" name="fee" /></div></li>
         <li><label for="mail">Period:</label></li>
         <li><div><input type="text" id="period" name="period" /></div></li>
+        <input type="checkbox" name="allowchanges" id="allowchanges" value="false">Allow beneficiary fee amends
         <li><button id="populate">Add New Debit</button></li>
   </form>
 </ul>
@@ -256,7 +268,7 @@ $(document).ready(function(){
 
   <div id="result-iframe-wrap">
   
-  <table id="myTable">
+  <table id="myTable" style="margin-left: auto; margin-right: auto; width:80%">
   
 </table>
 <br>

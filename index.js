@@ -6,7 +6,7 @@ var Web3 = require('web3');
 const path = require('path');
 
 // Connect to a geth server over JSON-RPC
-var sandboxId = '3f4bc319a3';
+var sandboxId = '59515ced0f';
 var sandboxUrl = 'https://lythium.by.ether.camp:8555/sandbox/' + sandboxId;
 var web3 = new Web3(new Web3.providers.HttpProvider(sandboxUrl));
 
