@@ -6,7 +6,7 @@ var Web3 = require('web3');
 const path = require('path');
 
 // Connect to a geth server over JSON-RPC
-var sandboxId = '117537ac16';
+var sandboxId = '3f4bc319a3';
 var sandboxUrl = 'https://lythium.by.ether.camp:8555/sandbox/' + sandboxId;
 var web3 = new Web3(new Web3.providers.HttpProvider(sandboxUrl));
 
@@ -15,7 +15,7 @@ require('./abi.js');
 var contractObject = web3.eth.contract(contractAbi);
 
 // instantiate by address
-var contractAddress = '0xdf315f7485c3a86eb692487588735f224482abe3';
+var contractAddress = '0x17956ba5f4291844bc25aedb27e69bc11b5bda39';
 var contractInstance = contractObject.at(contractAddress);
 web3.eth.defaultAccount = '0xdedb49385ad5b94a16f236a6890cf9e0b1e30392';
 
@@ -40,7 +40,7 @@ app.post('/createDirectDebit', function(req, res) {
     var accountNumber = req.body.beneficiary;
     var fee = req.body.fee;
     var period = req.body.period;
-    var allowChanges = true; // req.body.allowChanges;
+    var allowChanges = req.body.allowChanges;
     
     var fee = contractInstance.createDirectDebit(accountNumber, fee, period, allowChanges);
     res.send('Account number: ' + accountNumber + ' fee: ' + fee + ' period: ' + period + ' added to your account.');

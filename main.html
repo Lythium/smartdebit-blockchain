@@ -185,6 +185,7 @@ td.text-right {
   text-align: right;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="">
     function sendNewDeposit() {
         document.getElementById("form_id").action = "/success"; // Setting form action to "/sucess" page
@@ -203,8 +204,22 @@ function deleteAccount() {
     form.submit();
 }
 
-	function populate() {	
-	var table = document.getElementById("myTable");
+$(document).ready(function(){
+  $("#populate").click(function(){
+    event.preventDefault();
+
+    $.post("/createDirectDebit",
+    {
+        beneficiary: $('#beneficiary').val(),
+        fee: $('#fee').val(),
+        period: $('#period').val(),
+        allowChanges: true
+    },
+    function(data, status){
+        //alert("Data: " + data + "\nStatus: " + status);
+    });
+    
+    var table = document.getElementById("myTable");
     var row = table.insertRow(0);
 	row.id = document.getElementById("beneficiary").value;
     var cell1 = row.insertCell(0);
@@ -215,8 +230,10 @@ function deleteAccount() {
     cell2.innerHTML = document.getElementById("fee").value;
 	cell3.innerHTML = document.getElementById("period").value;
 	cell4.innerHTML = "<button onclick=\"deleteAccount()\">Remove</button>";
-	return false;
-}
+});
+  
+});
+
 </script>
 </head>
 <body>
@@ -232,7 +249,7 @@ function deleteAccount() {
         <li><div><input type="text" id="fee" name="fee" /></div></li>
         <li><label for="mail">Period:</label></li>
         <li><div><input type="text" id="period" name="period" /></div></li>
-        <li><button type="submit" onclick="populate()">Add New Debit</button></li>
+        <li><button id="populate">Add New Debit</button></li>
   </form>
 </ul>
 
